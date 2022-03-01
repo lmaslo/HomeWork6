@@ -15,15 +15,15 @@ public class CheckCreateAccount {
 
     //locators
     SelenideElement registerTitle = $(".ph-project__register");
-    SelenideElement accountInput = $("[data-test-id=\"account__input\"]");
-    SelenideElement phoneInput = $("[data-test-id=\"phone-input\"]");
-    SelenideElement textErrorForm = $("[data-test-id=\"account-form-field\"]");
+    SelenideElement accountInput = $("[data-test-id='account__input']");
+    SelenideElement textErrorForm = $("[data-test-id='account-form-field']");
+
 
     @BeforeEach
     void precondition() {
         Selenide.open("https://mail.ru/");
         Configuration.browserSize = "1920x1080";
-        $(registerTitle).click();
+        registerTitle.click();
     }
 
     @AfterEach
@@ -41,12 +41,9 @@ public class CheckCreateAccount {
     @ParameterizedTest(name = "Check text error for login \"{0}\".")
     void checkTextError(String testName, String textError) {
         //Ввести в поле "Имя аккаунта" "{test_name}"
-        $(accountInput).setValue(testName);
-
-        //Изменения фокуса на поле телефон, для появления ошибки
-        $(phoneInput).click();
+        accountInput.setValue(testName);
 
         //Проверка "{text_error}"
-        $(textErrorForm).shouldBe(Condition.text(textError));
+        textErrorForm.shouldBe(Condition.text(textError));
     }
 }
